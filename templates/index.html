@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <title>eqms</title>
+</head>
+<body>
+
+<nav>
+    <a>Documents</a>
+</nav>
+
+<main>
+    <div>
+        {% for document in documents %}
+          <p>{{ document.name }}</p>
+        {% endfor %}
+    </div>
+</main>
+
+</body>
+</html>
