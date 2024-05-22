@@ -1,0 +1,4 @@
+venv
+store.json
+db.sqlite3
+.idea
