@@ -5,16 +5,28 @@
     <meta charset="UTF-8">
     <title>eqms</title>
 </head>
-<body>
+<body class="flex gap-4">
 
 <nav>
     <a>Documents</a>
 </nav>
 
-<main>
-    <div>
+<main class="flex flex-col gap-4">
+    <div class="flex gap-4">
+        <a href="/create/document/" class="bg-blue-200 p-4 rounded">Create Document</a>
+    </div>
+    <div class="grid grid-cols-5 gap-4">
+        <p>uuid</p>
+        <p>name</p>
+        <p>author</p>
+        <p>effective</p>
+        <p>withdrawn</p>
         {% for document in documents %}
-          <p>{{ document.name }}</p>
+            <a href="/documents/{{ document.uuid }}">{{ document.uuid | truncatechars:8 }}</a>
+            <a href="/documents/{{ document.uuid }}">{{ document.name }}</a>
+            <a href="/documents/{{ document.uuid }}">{{ document.author }}</a>
+            <a href="/documents/{{ document.uuid }}">{{ document.effective }}</a>
+            <a href="/documents/{{ document.uuid }}">{{ document.withdrawn }}</a>
         {% endfor %}
     </div>
 </main>
