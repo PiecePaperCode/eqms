@@ -2,6 +2,7 @@ import unittest
 
 from eqms.document import Document
 from eqms.document_store import Store
+from eqms.user import User, Role
 
 
 class TestDocumentStore(unittest.TestCase):
@@ -34,7 +35,7 @@ class TestDocumentStore(unittest.TestCase):
 
     def test_withdraw_document_overview_from_store(self):
         document = Document("text...", name="doc1")
-        document.withdraw('Tom Scott')
+        document.withdraw(User('Tom Scott', roles=[Role.QA]))
         self.store.add_document(document)
         self.assertEqual(len(self.store.generate_overview()), 0)
         self.assertEqual(
