@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime
 
-from eqms.record import Record
+from eqms.record import Record, RecordType
 from eqms.user import User, Role
 
 
@@ -24,6 +24,10 @@ class TestRecord(unittest.TestCase):
             Exception,
             self.record.execute, "I did it", User("Michael Scott")
         )
+
+    def test_record_can_be_of_a_certain_type(self):
+        self.record.type = RecordType.TRAINING
+        self.assertEqual(self.record.type, RecordType.TRAINING)
 
 
 if __name__ == '__main__':
