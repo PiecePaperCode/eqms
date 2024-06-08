@@ -14,7 +14,7 @@ class TestRecord(unittest.TestCase):
 
     def test_execute_a_record(self):
         self.record.execute("I did it", User("Michael Scott", roles=[Role.QA]))
-        self.assertEqual("I did it", self.record.execution)
+        self.assertEqual("I did it", self.record.execution_evidence)
         self.assertEqual("Michael Scott", self.record.executed_by)
         self.assertEqual(datetime.now().date(), self.record.executed_at)
 
