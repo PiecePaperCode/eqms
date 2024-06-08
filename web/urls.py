@@ -17,10 +17,9 @@ Including another URLconf
 # from django.contrib import admin
 from django.urls import path
 
-from web.view import index, show_document, create_document
+from web.view import index
 
 urlpatterns = [
     path('', index, name='index'),
-    path('documents/<int:document_uuid>/', show_document, name='show_document'),
-    path('create/document/', create_document, name='create_document'),
+    path('dashboard', index, name='dashboard'),
 ]
