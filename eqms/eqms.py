@@ -1,3 +1,5 @@
+import copy
+
 from eqms.document import Document
 from eqms.document_store import Store
 
@@ -15,8 +17,10 @@ class eQMS:
             {'name': '03 SOP - Software Development Lifecycle', 'folder': 'SOP'},
         ]
         for document in documents:
-            doc = Document(document['name'])
+            doc = Document('Text', name=document['name'])
+            print(doc.uuid)
             self.qms_documents.add_document(doc)
             if document['folder'] not in self.qms_documents.folders.keys():
                 self.qms_documents.add_folder(document['folder'])
             self.qms_documents.folders[document['folder']].add_document(doc)
+        print(self.qms_documents.generate_overview())

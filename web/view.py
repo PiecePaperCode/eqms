@@ -10,5 +10,8 @@ def index(request):
     return render(
         request,
         'base.html',
-        {'eqms': eqms}
+        {
+            'eqms': eqms,
+            'qms_documents_overview': eqms.qms_documents.generate_overview(),
+        }
     )

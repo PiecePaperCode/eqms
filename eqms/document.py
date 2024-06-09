@@ -15,9 +15,12 @@ class Document:
             withdrawn: date = None,
             signed_by: tuple = (),
             withdrawn_by: tuple = (),
-            _uuid: int = uuid.uuid4().int,
+            _uuid: int = None,
     ):
-        self.uuid = _uuid
+        if _uuid is None:
+            self.uuid = uuid.uuid4().int
+        else:
+            self.uuid = _uuid
         self.text = text
         self.version = version
         self.name = name
