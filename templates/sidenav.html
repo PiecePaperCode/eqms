@@ -7,17 +7,18 @@
     </h2>
   </a>
   <div class="mt-4">
-    <span class="text-gray-400 font-bold">QMS</span>
-    {% for document in qms_documents_overview %}
-      <a
-        href=""
-        class="flex font-semibold mb-1 group items-center py-2 px-4
-               text-gray-900 hover:bg-gray-950 hover:text-gray-100
-               rounded-md"
-      >
-        <i class="ri-draft-line mr-3 text-lg"></i>
-        <span class="text-sm">{{ document.name }}</span>
-      </a>
+    {% for folder, folder_content in eqms.qms_documents.folders.items %}
+        <span class="text-gray-400 font-bold">{{ folder }}</span>
+        {% for document in folder_content.documents %}
+            <a href=""
+               class="flex font-semibold mb-1 group items-center py-2 px-4
+                      text-gray-900 hover:bg-gray-950 hover:text-gray-100
+                      rounded-md"
+            >
+                <i class="ri-draft-line mr-3 text-lg"></i>
+                <span class="text-sm">{{ document.name }}</span>
+          </a>
+        {% endfor %}
     {% endfor %}
   </div>
 </div>

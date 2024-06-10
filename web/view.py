@@ -12,6 +12,5 @@ def index(request):
         'base.html',
         {
             'eqms': eqms,
-            'qms_documents_overview': eqms.qms_documents.generate_overview(),
         }
     )
