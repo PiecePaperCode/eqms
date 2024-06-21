@@ -10,7 +10,7 @@ class Document:
             text: str,
             name: str = '',
             version: int = 1,
-            author: str = None,
+            author: str | User = None,
             effective: date = None,
             withdrawn: date = None,
             signed_by: tuple = (),

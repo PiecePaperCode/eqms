@@ -17,9 +17,10 @@ Including another URLconf
 # from django.contrib import admin
 from django.urls import path
 
-from web.view import index
+from web.view import *
 
 urlpatterns = [
     path('', index, name='index'),
     path('dashboard', index, name='dashboard'),
+    path('document/<int:document_id>', render_document, name='document'),
 ]

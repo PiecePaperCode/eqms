@@ -2,6 +2,7 @@ import copy
 
 from eqms.document import Document
 from eqms.document_store import Store
+from eqms.user import User
 
 
 class eQMS:
@@ -17,8 +18,9 @@ class eQMS:
             {'name': '03 SOP - Software Development Lifecycle', 'folder': 'SOP'},
         ]
         for document in documents:
-            doc = Document('Text', name=document['name'])
-            print(doc.uuid)
+            doc = Document('Text', name=document['name'], author=User('Michael Scott'))
+            doc.sign(User('Michael Scott'))
+            print(doc.uuid, doc.author)
             self.qms_documents.add_document(doc)
             if document['folder'] not in self.qms_documents.folders.keys():
                 self.qms_documents.add_folder(document['folder'])
