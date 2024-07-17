@@ -2,7 +2,7 @@ import copy
 
 from eqms.document import Document
 from eqms.document_store import Store
-from eqms.user import User
+from eqms.user import User, Role
 
 
 class eQMS:
@@ -18,11 +18,21 @@ class eQMS:
             {'name': '03 SOP - Software Development Lifecycle', 'folder': 'SOP'},
         ]
         for document in documents:
-            doc = Document('Text', name=document['name'], author=User('Michael Scott'))
-            doc.sign(User('Michael Scott'))
-            print(doc.uuid, doc.author)
+            doc = Document(
+                'Text',
+                name=document['name'],
+                author=User('Michael Scott')
+            )
+            doc.sign(User('Michael Scott', roles=[Role.QA]))
             self.qms_documents.add_document(doc)
+            doc2 = Document(
+                'Text',
+                name=document['name'],
+                author=User('Michael Scott'),
+                version=2,
+                _uuid=doc.uuid
+            )
+            self.qms_documents.add_document(doc2)
             if document['folder'] not in self.qms_documents.folders.keys():
                 self.qms_documents.add_folder(document['folder'])
             self.qms_documents.folders[document['folder']].add_document(doc)
-        print(self.qms_documents.generate_overview())

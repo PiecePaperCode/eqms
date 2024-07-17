@@ -1,5 +1,8 @@
 from datetime import datetime
 
+from eqms.document import Document
+from eqms.user import User
+
 
 class Store:
     def __init__(self, documents=None, folder=None):
@@ -18,7 +21,7 @@ class Store:
             document.version = len(self.documents[document.uuid]) + 1
             self.documents[document.uuid][document.version] = document
 
-    def get_document(self, uuid, version=None):
+    def get_document(self, uuid, version=None) -> Document:
         if version is None:
             return self.documents[uuid][max(self.get_versions(uuid))]
         elif version not in self.documents[uuid]:
@@ -26,8 +29,23 @@ class Store:
         else:
             return self.documents[uuid][version]
 
-    def get_versions(self, uuid):
-        return self.documents[uuid].keys()
+    def update_document(self, uuid, document):
+        old_document = self.get_document(uuid)
+        if old_document.effective is not None:
+            return False
+        document.uuid = old_document.uuid
+        document.version = old_document.version
+        self.documents[uuid][document.version] = document
+        return True
+
+    def sign(self, uuid, user: User):
+        document = self.get_document(uuid)
+        document.sign(user)
+        for version in self.get_versions(uuid)[:-1]:
+            self.documents[uuid][version].withdraw(user)
+
+    def get_versions(self, uuid) -> list:
+        return list(self.documents[uuid].keys())
 
     def count_total_documents(self):
         return len(self.documents)

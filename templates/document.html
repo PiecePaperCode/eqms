@@ -4,132 +4,163 @@
     
 <section class="bg-gray-900">
   <div class="max-w-2xl px-4 py-8 mx-auto lg:py-16">
-      <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Document {{ document.name }}</h2>
-      <form action="#">
-          <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
-              <div class="sm:col-span-2">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                      Document Name
-                  </label>
-                  <input 
-                      type="text" 
-                      name="name" 
-                      id="name" 
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                          focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 
-                          dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
-                          dark:focus:border-primary-500" 
-                      value="{{ document.name }}"
-                      required=""
-                  >
-              </div>
-              <div class="w-full">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Version</label>
-                  <input 
-                      type="number" 
-                      name="version" 
-                      id="brand" 
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                          focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 
-                          dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
-                          dark:focus:border-primary-500" 
-                      value="{{ document.version }}"
-                      required=""
-                      readonly
-                  >
-              </div>
-              <div class="w-full">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Author</label>
-                  <input 
-                      type="text" 
-                      name="author" 
-                      id="brand" 
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                          focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 
-                          dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
-                          dark:focus:border-primary-500" 
-                      value="{{ document.author }}"
-                      required=""
-                  >
-              </div>
-              <div class="w-full">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Effective</label>
-                  <input 
-                      type="text" 
-                      name="effective" 
-                      id="effective" 
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                          focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 
-                          dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
-                          dark:focus:border-primary-500" 
-                      value="{{ document.effective }}"
-                      required=""
-                  >
-              </div>
-              <div class="w-full">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Withdrawn</label>
-                  <input 
-                      type="text" 
-                      name="withdrawn" 
-                      id="effective" 
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                          focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 
-                          dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
-                          dark:focus:border-primary-500" 
-                      value="{{ document.withdrawn }}"
-                      required=""
-                  >
-              </div>
-              <div class="w-full">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Signed by</label>
-                  <input 
-                      type="text" 
-                      name="signed_by" 
-                      id="signed_by" 
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                          focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 
-                          dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
-                          dark:focus:border-primary-500" 
-                      value="{{ document.signed_by }}"
-                      required=""
-                  >
-              </div>
-              <div class="w-full">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Withdrawn by</label>
-                  <input 
-                      type="text" 
-                      name="withdrawn_by" 
-                      id="withdrawn_by" 
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                          focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 
-                          dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
-                          dark:focus:border-primary-500" 
-                      value="{{ document.withdrawn_by }}"
-                      required=""
-                  >
-              </div>
-              <div class="sm:col-span-2">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Content</label>
-                  <textarea 
-                      id="description" 
-                      rows="8" 
-                      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 
-                          focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 
-                          dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
-                          dark:focus:border-primary-500"
-                  >{{ document.text }}</textarea>
-              </div>
+    <h2 class="mb-4 text-xl font-bold text-white">Document {{ document.name.value }}</h2>
+      
+    <div class="flex gap-4 mb-2 text-sm font-medium text-white">
+      <span>Version</span>
+        
+      {% for version in versions %}
+          {% if document.version.value is version and document.effective.value == None %}
+            <a class="mb-2 font-bold text-white border-white border-2 rounded-lg px-2 py-1" 
+               href="/document/{{ document.uuid.value }}/{{ version }}">
+          {% elif document.version.value is version and document.effective.value != None %}
+            <a class="mb-2 font-bold text-white border-green-300 border-2 rounded-lg px-2 py-1" 
+               href="/document/{{ document.uuid.value }}/{{ version }}">
+          {% else %}
+            <a class="mb-2 text-sm font-medium text-white px-2 py-1"  
+              href="/document/{{ document.uuid.value }}/{{ version }}">
+          {% endif %}
+              {{ version }}
+            </a>
+      {% endfor %}
+    </div>
+
+    <form 
+      action="/document/{{ document.uuid.value }}" 
+      method="post"
+      {% if document.signed_by.value != "()" %}
+        class="pointer-events-none cursor-not-allowed"
+      {% endif %}
+    >
+      {% csrf_token %}
+      {{ document.uuid }}
+      <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+          <div class="sm:col-span-2">
+              <label class="block mb-2 text-sm font-medium text-white">
+                  Document Name
+              </label>
+              <input 
+                  type="text" 
+                  name="name" 
+                  id="name" 
+                  class="border border-gray-300 text-gray-900 text-sm rounded-lg 
+                      focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-700 
+                      border-gray-600 placeholder-gray-400 text-white focus:ring-primary-500 
+                      focus:border-primary-500" 
+                  value="{{ document.name.value }}"
+                  required=""
+              >
           </div>
-          <div class="flex items-center space-x-4">
-              <button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                  Update product
-              </button>
-              <button type="button" class="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
-                  <svg class="w-5 h-5 mr-1 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                  Delete
-              </button>
+          <div class="w-full">
+              <label class="block mb-2 text-sm font-medium text-white">Version</label>
+              <input 
+                  type="text" 
+                  name="version" 
+                  id="brand" 
+                  class="border border-gray-300 text-gray-900 text-sm rounded-lg 
+                      focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-700 
+                      border-gray-600 placeholder-gray-400 text-white focus:ring-primary-500 
+                      focus:border-primary-500" 
+                  value="{{ document.version.value }}"
+                  required=""
+                  readonly
+              >
           </div>
-      </form>
+          <div class="w-full">
+              <label class="block mb-2 text-sm font-medium text-white">Author</label>
+              <input 
+                  type="text" 
+                  name="author" 
+                  id="brand" 
+                  class="border border-gray-300 text-gray-900 text-sm rounded-lg 
+                      focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-700 
+                      border-gray-600 placeholder-gray-400 text-white focus:ring-primary-500 
+                      focus:border-primary-500" 
+                  value="{{ document.author.value }}"
+                  required=""
+              >
+          </div>
+          <div class="w-full">
+              <label class="block mb-2 text-sm font-medium text-white">Effective</label>
+              <input 
+                  type="text" 
+                  name="effective" 
+                  id="effective" 
+                  class="border border-gray-300 text-gray-900 text-sm rounded-lg 
+                      focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-700 
+                      border-gray-600 placeholder-gray-400 text-white focus:ring-primary-500 
+                      focus:border-primary-500" 
+                  value="{{ document.effective.value }}"
+                  required=""
+              >
+          </div>
+          <div class="w-full">
+              <label class="block mb-2 text-sm font-medium text-white">Withdrawn</label>
+              <input 
+                  type="text" 
+                  name="withdrawn" 
+                  id="effective" 
+                  class="border border-gray-300 text-gray-900 text-sm rounded-lg 
+                      focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-700 
+                      border-gray-600 placeholder-gray-400 text-white focus:ring-primary-500 
+                      focus:border-primary-500" 
+                  value="{{ document.withdrawn.value }}"
+                  required=""
+              >
+          </div>
+          <div class="w-full">
+              <label class="block mb-2 text-sm font-medium text-white">Signed by</label>
+              <input 
+                  type="text" 
+                  name="signed_by" 
+                  id="signed_by" 
+                  class="border border-gray-300 text-gray-900 text-sm rounded-lg 
+                      focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-700 
+                      border-gray-600 placeholder-gray-400 text-white focus:ring-primary-500 
+                      focus:border-primary-500" 
+                  value="{{ document.signed_by.value }}"
+                  required=""
+              >
+          </div>
+          <div class="w-full">
+              <label class="block mb-2 text-sm font-medium text-white">Withdrawn by</label>
+              <input 
+                  type="text" 
+                  name="withdrawn_by" 
+                  id="withdrawn_by" 
+                  class="border border-gray-300 text-gray-900 text-sm rounded-lg 
+                      focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-700 
+                      border-gray-600 placeholder-gray-400 text-white focus:ring-primary-500 
+                      focus:border-primary-500" 
+                  value="{{ document.withdrawn_by.value }}"
+                  required=""
+              >
+          </div>
+          <div class="sm:col-span-2">
+              <label class="block mb-2 text-sm font-medium text-white">Content</label>
+              <textarea 
+                  name="text" 
+                  id="id_text"
+                  rows="10" 
+                  required=""
+                  class="border border-gray-300 text-gray-900 text-sm rounded-lg 
+                      focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-700 
+                      border-gray-600 placeholder-gray-400 text-white focus:ring-primary-500 
+                      focus:border-primary-500" 
+              >{{ document.text.value }}</textarea>
+              
+          </div>
+      </div>
+      <div class="flex items-center space-x-4">
+          <button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+              Update
+          </button>
+          <button type="button" class="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+              <svg class="w-5 h-5 mr-1 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+              Delete
+          </button>
+      </div>
+    </form>
   </div>
 </section>
     

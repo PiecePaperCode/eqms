@@ -3,6 +3,8 @@ import unittest
 from django.test import Client, TestCase
 from django.urls import reverse
 
+from web.view import eqms
+
 
 class TestDashboard(TestCase):
     def setUp(self):

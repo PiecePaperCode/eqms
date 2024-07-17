@@ -43,6 +43,31 @@ class TestDocumentStore(unittest.TestCase):
             1
         )
 
+    def test_lifecycle_of_documents(self):
+        qa = User('Tom Scott', roles=[Role.QA])
+        document = Document("text...", name="doc1")
+        self.store.add_document(document)
+        self.store.sign(document.uuid, qa)
+        document2 = Document("New Text", name="doc2", _uuid=document.uuid)
+        self.store.add_document(document2)
+        self.store.sign(document.uuid, qa)
+        self.assertEqual(
+            self.store.get_document(document.uuid, version=2).signed_by,
+            (qa,)
+        )
+        self.assertEqual(
+            self.store.get_document(document.uuid, version=2).withdrawn_by,
+            ()
+        )
+        self.assertEqual(
+            self.store.get_document(document.uuid, version=1).signed_by,
+            (qa,)
+        )
+        self.assertEqual(
+            self.store.get_document(document.uuid, version=1).withdrawn_by,
+            (qa,)
+        )
+
     def test_folder_in_store(self):
         self.assertEqual(len(self.store.folders), 0)
 
@@ -93,6 +118,36 @@ class TestDocumentStore(unittest.TestCase):
             2
         )
 
+    def test_updating_draft_document(self):
+        document = Document("Best SOP ever", name="01 SOP Quality")
+        self.store.add_document(document)
+        document2 = Document(
+            "Best SOP ever 2",
+            name=document.name,
+        )
+        it_worked = self.store.update_document(document.uuid, document2)
+        self.assertTrue(it_worked)
+        self.assertEqual(self.store.get_document(document.uuid).version, 1)
+        self.assertEqual(
+            self.store.get_document(document.uuid).text,
+            "Best SOP ever 2"
+        )
+
+    def test_updating_effective_document_should_not_be_possible(self):
+        document = Document("Best SOP ever", name="01 SOP Quality")
+        self.store.add_document(document)
+        self.store.sign(document.uuid, User('Tom Scott', roles=[Role.QA]))
+        document2 = Document(
+            "Best SOP ever 2",
+            name=document.name,
+        )
+        it_worked = self.store.update_document(document.uuid, document2)
+        self.assertFalse(it_worked)
+        self.assertEqual(
+            self.store.get_document(document.uuid).text,
+            "Best SOP ever"
+        )
+
     def test_wrong_version_of_document(self):
         document = Document("Best SOP ever", name="01 SOP Quality")
         self.store.add_document(document)
@@ -100,6 +155,13 @@ class TestDocumentStore(unittest.TestCase):
             Exception,
             self.store.get_document, document.uuid, version=99
         )
+
+    def test_get_all_versions_of_document(self):
+        document = Document("Best SOP ever", name="01 SOP Quality", version=1)
+        self.store.add_document(document)
+        document2 = Document("Best SOP ever", name="01 SOP Quality", version=2, _uuid=document.uuid)
+        self.store.add_document(document2)
+        self.assertEqual(self.store.get_versions(document.uuid), [1, 2])
 
 
 if __name__ == '__main__':
