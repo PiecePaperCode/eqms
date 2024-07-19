@@ -17,9 +17,17 @@ class Store:
         if document.uuid not in self.documents:
             document.version = 1
             self.documents[document.uuid] = {document.version: document}
-        else:
+        elif self.get_document(document.uuid).effective is not None:
             document.version = len(self.documents[document.uuid]) + 1
+            document.author = ""
+            document.signed_by = ()
+            document.withdrawn_by = ()
+            document.effective = None
+            document.withdrawn = None
             self.documents[document.uuid][document.version] = document
+        else:
+            return False
+        return True
 
     def get_document(self, uuid, version=None) -> Document:
         if version is None:

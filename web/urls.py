@@ -24,4 +24,5 @@ urlpatterns = [
     path('dashboard', index, name='dashboard'),
     path('document/<int:document_id>', render_document, name='document'),
     path('document/<int:document_id>/<int:version>', render_document, name='document version'),
+    path('document/<int:document_id>/<str:operation>', render_document, name='new document version'),
 ]

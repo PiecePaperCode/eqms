@@ -1,4 +1,5 @@
 import unittest
+from copy import deepcopy
 
 from eqms.document import Document
 from eqms.document_store import Store
@@ -48,8 +49,10 @@ class TestDocumentStore(unittest.TestCase):
         document = Document("text...", name="doc1")
         self.store.add_document(document)
         self.store.sign(document.uuid, qa)
-        document2 = Document("New Text", name="doc2", _uuid=document.uuid)
+        document2 = Document("New Text2", name="doc2", _uuid=document.uuid)
         self.store.add_document(document2)
+        document3 = Document("New Text3", name="doc3")
+        self.store.update_document(document2.uuid, document3)
         self.store.sign(document.uuid, qa)
         self.assertEqual(
             self.store.get_document(document.uuid, version=2).signed_by,
@@ -66,6 +69,14 @@ class TestDocumentStore(unittest.TestCase):
         self.assertEqual(
             self.store.get_document(document.uuid, version=1).withdrawn_by,
             (qa,)
+        )
+        self.assertEqual(
+            self.store.get_document(document.uuid, version=2).text,
+            "New Text3"
+        )
+        self.assertEqual(
+            self.store.get_document(document.uuid, version=2).version,
+            2
         )
 
     def test_folder_in_store(self):
@@ -103,19 +114,19 @@ class TestDocumentStore(unittest.TestCase):
     def test_add_newer_version_of_document(self):
         document = Document("Best SOP ever", name="01 SOP Quality")
         self.store.add_document(document)
+        self.store.sign(document.uuid, User('Tom Scott', roles=[Role.QA]))
         self.assertEqual(len(self.store.documents[document.uuid]), 1)
-        document2 = Document(
-            "even Better",
-            name=document.name,
-            version=99,
-            _uuid=document.uuid
-        )
+        document2 = deepcopy(document)
         self.store.add_document(document2)
         self.assertEqual(len(self.store.documents[document.uuid]), 2)
         self.assertEqual(len(self.store.get_versions(document.uuid)), 2)
         self.assertEqual(
             self.store.get_document(document.uuid, version=2).version,
             2
+        )
+        self.assertEqual(
+            self.store.get_document(document.uuid, version=2).signed_by,
+            ()
         )
 
     def test_updating_draft_document(self):
@@ -159,9 +170,17 @@ class TestDocumentStore(unittest.TestCase):
     def test_get_all_versions_of_document(self):
         document = Document("Best SOP ever", name="01 SOP Quality", version=1)
         self.store.add_document(document)
+        self.store.sign(document.uuid, User('Tom Scott', roles=[Role.QA]))
         document2 = Document("Best SOP ever", name="01 SOP Quality", version=2, _uuid=document.uuid)
         self.store.add_document(document2)
         self.assertEqual(self.store.get_versions(document.uuid), [1, 2])
+
+    def test_new_version_of_document_on_top_of_not_signed_document(self):
+        document = Document("Best SOP ever", name="01 SOP Quality", version=1)
+        self.store.add_document(document)
+        document2 = Document("Best SOP ever", name="01 SOP Quality", version=2, _uuid=document.uuid)
+        it_worked = self.store.add_document(document2)
+        self.assertFalse(it_worked)
 
 
 if __name__ == '__main__':

@@ -5,6 +5,8 @@ from eqms.document import Document
 from eqms.eqms import eQMS
 from django import forms
 
+from eqms.user import User, Role
+
 eqms = eQMS('Dunder Mifflin')
 eqms.initialize_qms_project()
 
@@ -19,13 +21,26 @@ def index(request):
     )
 
 
-def render_document(request, document_id, version=None):
+def render_document(request, document_id, version=None, operation=None):
+    if operation == "create":
+        new_version_document = eqms.qms_documents.get_document(document_id)
+        eqms.qms_documents.add_document(new_version_document)
+    if operation == "sign":
+        eqms.qms_documents.sign(
+            document_id,
+            User('Tom Scott', roles=[Role.QA])
+        )
+    if operation is not None:
+        return HttpResponseRedirect(f"/document/{document_id}")
     if request.method == 'POST':
         form = DocumentForm(request.POST)
         if form.is_valid():
-            updated_document = Document("123")
+            updated_document = Document("")
             updated_document.__dict__.update(form.cleaned_data)
-            eqms.qms_documents.update_document(document_id, updated_document)
+            if operation:
+                eqms.qms_documents.add(updated_document)
+            else:
+                eqms.qms_documents.update_document(document_id, updated_document)
         else:
             raise Exception(form.errors)
     form = DocumentForm(
