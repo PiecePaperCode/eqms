@@ -44,6 +44,11 @@ class DocumentTests(unittest.TestCase):
         self.assertEqual(self.document.withdrawn_by[0], User('Michael Scott'))
         self.assertEqual(self.document.withdrawn, datetime.today().date())
 
+    def test_creating_a_new_version(self):
+        new_version_doc = self.document.increment_version()
+        self.assertEqual(new_version_doc.version, 2)
+        self.assertEqual(self.document.version, 1)
+
     def test_printing_a_document(self):
         printed_document = self.document.print()
         self.assertEqual(

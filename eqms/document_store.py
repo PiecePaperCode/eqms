@@ -46,6 +46,10 @@ class Store:
         self.documents[uuid][document.version] = document
         return True
 
+    def create_new_version(self, uuid) -> bool:
+        new_version = self.get_document(uuid).increment_version()
+        return self.add_document(new_version)
+
     def sign(self, uuid, user: User):
         document = self.get_document(uuid)
         document.sign(user)

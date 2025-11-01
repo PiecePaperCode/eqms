@@ -1,5 +1,7 @@
+import copy
 import uuid
 from datetime import date
+from typing import Self
 
 from eqms.user import User, Role
 
@@ -31,6 +33,11 @@ class Document:
         self.withdrawn_by = withdrawn_by
         if name == '':
             self.name = text[:20]
+
+    def increment_version(self) -> Self:
+        new_doc = copy.deepcopy(self)
+        new_doc.version += 1
+        return new_doc
 
     def sign(self, signing_person: User):
         if can_perform_the_task(signing_person):

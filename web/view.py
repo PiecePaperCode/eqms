@@ -1,3 +1,4 @@
+from django.contrib.messages.api import success
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
@@ -6,6 +7,7 @@ from eqms.eqms import eQMS
 from django import forms
 
 from eqms.user import User, Role
+from web.document import create_new_version_of_document
 
 eqms = eQMS('Dunder Mifflin')
 eqms.initialize_qms_project()
@@ -22,9 +24,9 @@ def index(request):
 
 
 def render_document(request, document_id, version=None, operation=None):
+    success = False
     if operation == "create":
-        new_version_document = eqms.qms_documents.get_document(document_id)
-        eqms.qms_documents.add_document(new_version_document)
+        success = create_new_version_of_document(document_id)
     if operation == "sign":
         eqms.qms_documents.sign(
             document_id,
